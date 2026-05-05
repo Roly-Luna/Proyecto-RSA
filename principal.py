@@ -9,7 +9,6 @@ import cifrado_rsa
 def mostrar_encabezado() -> None:
     print("======================================================")
     print("           SISTEMA CRIPTOGRAFICO RSA - UPC            ")
-    print("                 AVANCE TB1 (50%)                     ")
     print("======================================================")
 
 def mostrar_instrucciones() -> None:
