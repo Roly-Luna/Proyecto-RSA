@@ -141,17 +141,17 @@ def elegir_clave_privada(clave_e_seleccionada: int, funcion_euler_phi: int) -> i
 # ==========================================
 
 def opcion_encriptar() -> None:
-    # 1. Ingreso de datos
+    # Ingreso de datos
     texto_ingresado, lista_primos_ingresados = ingresar_datos_base()
     
-    # 2. Calculos matematicos
+    # Calculos matematicos
     modulo_n, funcion_euler_phi = mostrar_calculos_matematicos(lista_primos_ingresados)
     
-    # 3. Seleccion de claves
+    # Seleccion de claves
     clave_e_seleccionada = elegir_clave_publica(funcion_euler_phi)
     clave_d_seleccionada = elegir_clave_privada(clave_e_seleccionada, funcion_euler_phi)
 
-    # 4. Resumen y Cifrado
+    # Resumen y Cifrado
     os.system('cls')
     mostrar_encabezado()
     print("                 RESUMEN DE LAS CLAVES                ")
