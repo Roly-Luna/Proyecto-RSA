@@ -131,8 +131,8 @@ def elegir_clave_privada(clave_e_seleccionada: int, funcion_euler_phi: int) -> i
                 break
             print("-> ERROR: El valor debe ser estrictamente uno de la lista.")
         except ValueError:
-             print("-> ERROR: Ingresa un numero entero valido.")
-             
+            print("-> ERROR: Ingresa un numero entero valido.")
+
     return clave_d_seleccionada
 
 
