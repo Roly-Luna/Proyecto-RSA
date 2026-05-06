@@ -50,25 +50,37 @@ def ingresar_datos_base() -> tuple:
             print("-> ERROR: Por favor ingresa un numero entero.")
 
     print("\n--- Ingreso de Numeros Primos ---")
-    lista_primos_ingresados = []
     
-    for i in range(cantidad_primos):
-        while True:
-            try:
-                primo_actual = int(input(f"Ingresa el primo #{i+1} (1 o 2 cifras maximo): "))
-                
-                if primo_actual > 99:
-                    print("-> ERROR: El numero debe tener 1 o 2 cifras como maximo.")
-                elif not matematica_rsa.es_primo(primo_actual):
-                    print("-> RECHAZADO: El numero NO es primo. Corrigelo antes de continuar.")
-                elif primo_actual in lista_primos_ingresados:
-                    print("-> ERROR: Los numeros primos deben ser diferentes entre si.")
-                else:
-                    lista_primos_ingresados.append(primo_actual)
-                    break 
-            except ValueError:
-                print("-> ERROR: Ingresa solo numeros enteros validos.")
-                
+    while True:
+        lista_primos_ingresados = []
+        
+        for i in range(cantidad_primos):
+            while True:
+                try:
+                    primo_actual = int(input(f"Ingresa el primo #{i+1} (1 o 2 cifras maximo): "))
+                    
+                    if primo_actual > 99:
+                        print("-> ERROR: El numero debe tener 1 o 2 cifras como maximo.")
+                    elif not matematica_rsa.es_primo(primo_actual):
+                        print("-> RECHAZADO: El numero NO es primo. Corrigelo antes de continuar.")
+                    elif primo_actual in lista_primos_ingresados:
+                        print("-> ERROR: Los numeros primos deben ser diferentes entre si.")
+                    else:
+                        lista_primos_ingresados.append(primo_actual)
+                        break 
+                except ValueError:
+                    print("-> ERROR: Ingresa solo numeros enteros validos.")
+        
+        modulo_temporal = 1
+        for p in lista_primos_ingresados:
+            modulo_temporal *= p
+            
+        if modulo_temporal <= 26:
+            print(f"\n-> ERROR: El modulo n ({modulo_temporal}) es muy pequeno. Debe ser mayor a 26 (tamano del alfabeto).")
+            print("-> Por favor, ingresa primos mas grandes.\n")
+        else:
+            break
+            
     return texto_ingresado, lista_primos_ingresados
 
 
@@ -140,17 +152,13 @@ def elegir_clave_privada(clave_e_seleccionada: int, funcion_euler_phi: int) -> i
 # ==========================================
 
 def opcion_encriptar() -> None:
-    # Ingreso de datos
     texto_ingresado, lista_primos_ingresados = ingresar_datos_base()
     
-    # Calculos matematicos
     modulo_n, funcion_euler_phi = mostrar_calculos_matematicos(lista_primos_ingresados)
     
-    # Seleccion de claves
     clave_e_seleccionada = elegir_clave_publica(funcion_euler_phi)
     clave_d_seleccionada = elegir_clave_privada(clave_e_seleccionada, funcion_euler_phi)
 
-    # Resumen y Cifrado
     os.system('cls')
     mostrar_encabezado()
     print("                 RESUMEN DE LAS CLAVES                ")
